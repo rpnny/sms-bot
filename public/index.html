@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS-Bot Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0d0d; --card: #161616; --border: #222;
+    --text: #e0e0e0; --muted: #666; --green: #00d26a; --red: #ff4545;
+    --yellow: #f5a623; --blue: #4a9eff; --accent: #7b5ea7;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; }
+
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; border-bottom: 1px solid var(--border);
+    background: var(--card);
+  }
+  header h1 { font-size: 16px; letter-spacing: 1px; color: var(--blue); }
+  #status { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
+  #dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+         box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  main { padding: 20px 24px; display: grid; gap: 16px; }
+
+  /* stat cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .card-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .card-value { font-size: 24px; font-weight: 700; }
+  .card-value.green { color: var(--green); }
+  .card-value.red { color: var(--red); }
+  .card-value.blue { color: var(--blue); }
+  .card-sub { font-size: 11px; color: var(--muted); }
+
+  /* sections */
+  .section { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+                   color: var(--muted); margin-bottom: 14px; }
+
+  /* chart */
+  .chart-wrap { position: relative; height: 200px; }
+
+  /* positions */
+  .positions { display: flex; flex-direction: column; gap: 8px; }
+  .pos-row {
+    display: grid; grid-template-columns: 1fr 80px 80px 80px 80px;
+    gap: 8px; align-items: center; padding: 10px 12px;
+    background: #1a1a1a; border-radius: 6px; border-left: 3px solid var(--accent);
+  }
+  .pos-token { font-size: 11px; color: var(--text); word-break: break-all; }
+  .pos-cell { text-align: right; font-size: 12px; }
+  .pos-header { color: var(--muted); font-size: 10px; text-transform: uppercase; }
+
+  /* trades table */
+  .trades-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; padding: 6px 10px; color: var(--muted);
+       font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+       border-bottom: 1px solid var(--border); }
+  td { padding: 8px 10px; border-bottom: 1px solid #1a1a1a; }
+  tr:hover td { background: #1c1c1c; }
+  .pnl-pos { color: var(--green); }
+  .pnl-neg { color: var(--red); }
+  .reason-pill {
+    display: inline-block; padding: 2px 7px; border-radius: 4px;
+    font-size: 10px; font-weight: 600;
+  }
+  .reason-tier1   { background: #1a3a2a; color: var(--green); }
+  .reason-tier2   { background: #1a2a3a; color: var(--blue); }
+  .reason-trailing{ background: #2a2a1a; color: var(--yellow); }
+  .reason-hard_stop { background: #3a1a1a; color: var(--red); }
+  .reason-time_stop { background: #2a1a2a; color: var(--accent); }
+  .reason-smart_exit{ background: #2a2020; color: #ff8844; }
+
+  /* exit reason bar */
+  .reason-bars { display: flex; flex-direction: column; gap: 6px; }
+  .reason-bar-row { display: flex; align-items: center; gap: 8px; }
+  .reason-bar-label { width: 80px; font-size: 11px; color: var(--muted); }
+  .reason-bar-track { flex: 1; background: #1a1a1a; border-radius: 3px; height: 6px; overflow: hidden; }
+  .reason-bar-fill  { height: 100%; border-radius: 3px; background: var(--blue); }
+  .reason-bar-count { width: 30px; text-align: right; font-size: 11px; color: var(--muted); }
+
+  .empty { color: var(--muted); font-size: 12px; text-align: center; padding: 24px; }
+  #auth-overlay {
+    position: fixed; inset: 0; background: var(--bg); display: flex;
+    align-items: center; justify-content: center; flex-direction: column; gap: 12px; z-index: 99;
+  }
+  #auth-overlay input {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 8px 14px; border-radius: 6px; font-family: inherit; font-size: 14px; outline: none;
+  }
+  #auth-overlay button {
+    background: var(--blue); color: #000; border: none; padding: 8px 24px;
+    border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: 700;
+  }
+  #auth-err { color: var(--red); font-size: 12px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="auth-overlay">
+  <div style="color:var(--blue);font-size:18px;font-weight:700;letter-spacing:2px">SMS-BOT</div>
+  <input id="pwd-input" type="password" placeholder="Dashboard password (留空直接回车)" autocomplete="off">
+  <button onclick="login()">进入</button>
+  <div id="auth-err"></div>
+</div>
+
+<header>
+  <h1>⚡ SMS-BOT</h1>
+  <div id="status"><div id="dot"></div><span id="last-update">connecting...</span></div>
+</header>
+
+<main>
+  <div class="cards" id="cards">
+    <div class="card"><div class="card-label">今日交易</div><div class="card-value blue" id="s-total">—</div><div class="card-sub" id="s-wr">—</div></div>
+    <div class="card"><div class="card-label">今日 PnL</div><div class="card-value" id="s-pnl-today">—</div><div class="card-sub">SOL</div></div>
+    <div class="card"><div class="card-label">累计 PnL</div><div class="card-value" id="s-pnl-all">—</div><div class="card-sub">SOL</div></div>
+    <div class="card"><div class="card-label">当前持仓</div><div class="card-value blue" id="s-pos">—</div><div class="card-sub">active</div></div>
+    <div class="card"><div class="card-label">今日胜率</div><div class="card-value" id="s-wr2">—</div><div class="card-sub">wins / total</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">累计收益曲线 (SOL)</div>
+    <div class="chart-wrap"><canvas id="pnl-chart"></canvas></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 200px;gap:16px">
+    <div class="section">
+      <div class="section-title">当前持仓</div>
+      <div class="positions" id="pos-list"><div class="empty">暂无持仓</div></div>
+    </div>
+    <div class="section">
+      <div class="section-title">退出原因分布</div>
+      <div class="reason-bars" id="reason-bars"><div class="empty">暂无数据</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">最近交易</div>
+    <div class="trades-wrap">
+      <table>
+        <thead><tr>
+          <th>Token</th><th>来源</th><th>成本</th><th>PnL (SOL)</th><th>PnL %</th><th>退出原因</th><th>时间</th>
+        </tr></thead>
+        <tbody id="trades-body"></tbody>
+      </table>
+    </div>
+    <div class="empty hidden" id="trades-empty">暂无交易记录</div>
+  </div>
+</main>
+
+<script>
+let TOKEN = '';
+let chart = null;
+
+function login() {
+  TOKEN = document.getElementById('pwd-input').value;
+  document.getElementById('auth-overlay').classList.add('hidden');
+  init();
+}
+document.getElementById('pwd-input').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function api(path) {
+  const res = await fetch(path, { headers: TOKEN ? { 'x-dashboard-token': TOKEN } : {} });
+  if (res.status === 401) { document.getElementById('auth-overlay').classList.remove('hidden'); document.getElementById('auth-err').textContent = '密码错误'; throw new Error('unauthorized'); }
+  return res.json();
+}
+
+function fmtPnl(v) {
+  const n = parseFloat(v);
+  return (n >= 0 ? '+' : '') + n.toFixed(4);
+}
+function pnlClass(v) { return parseFloat(v) >= 0 ? 'pnl-pos' : 'pnl-neg'; }
+function fmtTime(s) {
+  const d = new Date(s); return d.toLocaleDateString('zh') + ' ' + d.toLocaleTimeString('zh', {hour:'2-digit',minute:'2-digit'});
+}
+function shortToken(t) { return t.slice(0,6)+'…'+t.slice(-4); }
+
+function reasonPill(r) {
+  return `<span class="reason-pill reason-${r}">${r}</span>`;
+}
+
+async function refresh() {
+  try {
+    const [stats, curve, trades, positions] = await Promise.all([
+      api('/api/stats'), api('/api/pnl-curve'), api('/api/trades?limit=30'), api('/api/positions')
+    ]);
+
+    // stats cards
+    const t = stats.today;
+    const wr = t.total > 0 ? (t.wins / t.total * 100).toFixed(0) : '0';
+    document.getElementById('s-total').textContent = t.total;
+    document.getElementById('s-pnl-today').textContent = fmtPnl(t.pnl_sol);
+    document.getElementById('s-pnl-today').className = 'card-value ' + pnlClass(t.pnl_sol);
+    document.getElementById('s-pnl-all').textContent = fmtPnl(stats.allTimePnlSol);
+    document.getElementById('s-pnl-all').className = 'card-value ' + pnlClass(stats.allTimePnlSol);
+    document.getElementById('s-pos').textContent = stats.activePositions;
+    document.getElementById('s-wr2').textContent = wr + '%';
+    document.getElementById('s-wr2').className = 'card-value ' + (parseFloat(wr) >= 50 ? 'green' : 'red');
+    document.getElementById('s-wr').textContent = `${t.wins}W / ${t.losses}L`;
+
+    // pnl chart
+    const labels = curve.map(p => fmtTime(p.t));
+    const data = curve.map(p => p.v);
+    if (!chart) {
+      const ctx = document.getElementById('pnl-chart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: { labels, datasets: [{
+          data, borderColor: '#4a9eff', backgroundColor: 'rgba(74,158,255,0.08)',
+          borderWidth: 2, pointRadius: 2, tension: 0.3, fill: true,
+        }] },
+        options: {
+          animation: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: false },
+            y: { grid: { color: '#1a1a1a' }, ticks: { color: '#666', font: { family: 'monospace', size: 11 } } }
+          },
+        }
+      });
+    } else {
+      chart.data.labels = labels;
+      chart.data.datasets[0].data = data;
+      // color line by last value
+      const last = data[data.length - 1] ?? 0;
+      chart.data.datasets[0].borderColor = last >= 0 ? '#00d26a' : '#ff4545';
+      chart.data.datasets[0].backgroundColor = last >= 0 ? 'rgba(0,210,106,0.07)' : 'rgba(255,69,69,0.07)';
+      chart.update();
+    }
+
+    // positions
+    const posList = document.getElementById('pos-list');
+    if (positions.length === 0) {
+      posList.innerHTML = '<div class="empty">暂无持仓</div>';
+    } else {
+      posList.innerHTML = `
+        <div class="pos-row" style="background:transparent;border-left:none">
+          <div class="pos-header">Token</div>
+          <div class="pos-header pos-cell">来源</div>
+          <div class="pos-header pos-cell">持仓 SOL</div>
+          <div class="pos-header pos-cell">持续 min</div>
+          <div class="pos-header pos-cell">档位</div>
+        </div>
+        ${positions.map(p => `
+        <div class="pos-row">
+          <div class="pos-token">${shortToken(p.token)}</div>
+          <div class="pos-cell" style="color:var(--muted)">${p.signalSource}</div>
+          <div class="pos-cell">${parseFloat(p.amountSol).toFixed(3)}</div>
+          <div class="pos-cell">${p.ageMin}</div>
+          <div class="pos-cell" style="color:var(--yellow)">${p.tier2Sold?'T2':p.tier1Sold?'T1':'—'}</div>
+        </div>`).join('')}`;
+    }
+
+    // exit reason bars
+    const reasons = stats.byReason;
+    const maxN = Math.max(...reasons.map(r => r.n), 1);
+    const reasonBars = document.getElementById('reason-bars');
+    if (reasons.length === 0) {
+      reasonBars.innerHTML = '<div class="empty">暂无数据</div>';
+    } else {
+      reasonBars.innerHTML = reasons.map(r => `
+        <div class="reason-bar-row">
+          <div class="reason-bar-label">${r.exit_reason}</div>
+          <div class="reason-bar-track"><div class="reason-bar-fill" style="width:${(r.n/maxN*100).toFixed(0)}%"></div></div>
+          <div class="reason-bar-count">${r.n}</div>
+        </div>`).join('');
+    }
+
+    // trades
+    const tbody = document.getElementById('trades-body');
+    const empty = document.getElementById('trades-empty');
+    if (trades.length === 0) {
+      tbody.innerHTML = ''; empty.classList.remove('hidden');
+    } else {
+      empty.classList.add('hidden');
+      tbody.innerHTML = trades.map(t => `
+        <tr>
+          <td title="${t.token_address}">${shortToken(t.token_address)}</td>
+          <td style="color:var(--muted)">${t.signal_source}</td>
+          <td>${parseFloat(t.entry_amount_sol).toFixed(3)}</td>
+          <td class="${pnlClass(t.realized_pnl_sol)}">${fmtPnl(t.realized_pnl_sol)}</td>
+          <td class="${pnlClass(t.realized_pnl_percent)}">${fmtPnl(t.realized_pnl_percent)}%</td>
+          <td>${reasonPill(t.exit_reason)}</td>
+          <td style="color:var(--muted)">${fmtTime(t.exit_time)}</td>
+        </tr>`).join('');
+    }
+
+    document.getElementById('last-update').textContent = '更新于 ' + new Date().toLocaleTimeString('zh');
+  } catch(e) {
+    if (e.message !== 'unauthorized') console.error(e);
+  }
+}
+
+function init() {
+  refresh();
+  setInterval(refresh, 10000);
+}
+
+// auto-login if no password configured
+fetch('/api/stats').then(r => {
+  if (r.status !== 401) { document.getElementById('auth-overlay').classList.add('hidden'); init(); }
+}).catch(() => {});
+</script>
+</body>
+</html>

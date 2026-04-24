@@ -1,0 +1,54 @@
+{
+  "positions": {
+    "maxConcurrent": 8,
+    "dailyLossLimitSol": 6,
+    "gasReserveSol": 0.2,
+    "sizeSmartMoneySol": 1.5,
+    "sizeNewTokenSol": 0.5,
+    "sizeBothSol": 3.0,
+    "maxSingleSol": 3.0
+  },
+  "signals": {
+    "smartMoney": {
+      "minUniqueWallets": 2,
+      "windowSeconds": 600
+    },
+    "pumpfun": {
+      "observeSeconds": 45,
+      "minInitialLiquiditySol": 5,
+      "minHolders": 30,
+      "minVolume1minSol": 2
+    }
+  },
+  "filter": {
+    "rugcheckMinScore": 70,
+    "minPoolLiquiditySol": 20,
+    "maxTop10Percent": 40,
+    "maxDevPercent": 10,
+    "timeoutMs": 3000
+  },
+  "takeProfit": {
+    "tier1TriggerPercent": 50,
+    "tier1SellRatio": 30,
+    "tier2TriggerPercent": 100,
+    "tier2SellRatio": 40,
+    "trailingDrawdownPercent": 25
+  },
+  "stopLoss": {
+    "hardStopPercent": -40,
+    "timeStopMinutes": 5,
+    "timeStopMinGainPercent": 15
+  },
+  "execution": {
+    "buySlippageBps": 2000,
+    "sellSlippageBps": 2500,
+    "maxPriceImpactPercent": 15,
+    "priorityFeeBuySol": 0.001,
+    "priorityFeeSellSol": 0.002,
+    "jitoTipSol": 0.0005,
+    "txTimeoutSec": 30
+  },
+  "monitor": {
+    "pollIntervalMs": 3000
+  }
+}

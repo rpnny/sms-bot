@@ -1,0 +1,10 @@
+{
+  "_comment": "种子名单, 后续根据 triggering_wallets PnL 贡献更新",
+  "wallets": [
+    { "address": "78N177fzNJpp8pG49xDv1efYcTMSzo9tPTKEA9mAVkh2", "label": "seed-1" },
+    { "address": "GQdzfQynbv28BnDAvPNBzWasBWeFyfqQQJNsACWV9odK", "label": "seed-2" },
+    { "address": "CVnRWFefzdHf3ALGK8aEc8PTvCsN6zG3JfcyPeWmQPUZ", "label": "seed-3" },
+    { "address": "65paNEG8m7mCVoASVF2KbRdU21aKXdASSB9G3NjCSQuE", "label": "seed-4" },
+    { "address": "4BdKaxN8G6ka4GYtQQWk4G4dZRUTX2vQH9GcXdBREFUk", "label": "seed-5" }
+  ]
+}
