@@ -35,6 +35,8 @@ export class SmartMoneyListener extends EventEmitter {
   private recentBuys: Map<string, SmartMoneyBuy[]> = new Map();
   private rpc: Connection;
   private processed = new Set<string>();
+  private activity = new Map<string, { swaps: number; buys: number; lastSeen: number }>();
+  private statsTimer?: NodeJS.Timeout;
 
   constructor(private cfg: StrategyConfig) {
     super();
@@ -70,10 +72,33 @@ export class SmartMoneyListener extends EventEmitter {
       },
       onMessage: (raw) => this.handle(raw as LogsNotification),
     });
+
+    this.statsTimer = setInterval(() => this.logActivityStats(), 15 * 60 * 1000);
   }
 
   stop(): void {
     this.ws?.close();
+    if (this.statsTimer) clearInterval(this.statsTimer);
+  }
+
+  private logActivityStats(): void {
+    const now = Date.now();
+    const active: Array<{ wallet: string; swaps: number; buys: number; minutesAgo: number }> = [];
+    for (const wallet of this.wallets) {
+      const a = this.activity.get(wallet);
+      if (!a) continue;
+      active.push({
+        wallet: wallet.slice(0, 8),
+        swaps: a.swaps,
+        buys: a.buys,
+        minutesAgo: Math.round((now - a.lastSeen) / 60000),
+      });
+    }
+    active.sort((a, b) => b.swaps - a.swaps);
+    log.info(
+      { totalWallets: this.wallets.length, activeWallets: active.length, top: active.slice(0, 10) },
+      "wallet activity stats (since startup)",
+    );
   }
 
   private handle(msg: LogsNotification): void {
@@ -93,6 +118,10 @@ export class SmartMoneyListener extends EventEmitter {
     const { signature, err, logs } = result.value;
     if (err) return;
     if (!logs.some((l) => SWAP_KEYWORDS.some((k) => l.includes(k)))) return;
+    const a = this.activity.get(wallet) ?? { swaps: 0, buys: 0, lastSeen: 0 };
+    a.swaps += 1;
+    a.lastSeen = Date.now();
+    this.activity.set(wallet, a);
     log.debug({ sig: signature.slice(0, 8), wallet: wallet.slice(0, 6) }, "swap tx candidate");
     if (this.processed.has(signature)) return;
     this.processed.add(signature);
@@ -137,6 +166,10 @@ export class SmartMoneyListener extends EventEmitter {
         }
       }
       if (!boughtMint) return;
+      const a = this.activity.get(wallet) ?? { swaps: 0, buys: 0, lastSeen: Date.now() };
+      a.buys += 1;
+      a.lastSeen = Date.now();
+      this.activity.set(wallet, a);
       this.record(boughtMint, wallet, Math.abs(solDelta));
     } catch (err) {
       log.warn({ err, signature }, "parseTx failed");

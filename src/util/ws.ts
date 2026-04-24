@@ -31,12 +31,15 @@ export function createReconnectingWs(opts: ReconnectingWsOptions): {
     });
 
     ws.on("message", (raw) => {
+      const text = raw.toString();
+      if (!text.startsWith("{") && !text.startsWith("[")) {
+        log.debug({ name: opts.name, preview: text.slice(0, 40) }, "non-JSON frame");
+        return;
+      }
       try {
-        const text = raw.toString();
-        const data = JSON.parse(text);
-        opts.onMessage(data);
+        opts.onMessage(JSON.parse(text));
       } catch (err) {
-        log.error({ err, name: opts.name }, "parse error");
+        log.debug({ err, name: opts.name }, "parse error");
       }
     });
 
