@@ -66,7 +66,7 @@ export interface StrategyConfig {
     };
   };
   filter: {
-    rugcheckMinScore: number;
+    rugcheckMaxScore: number;
     minPoolLiquiditySol: number;
     maxTop10Percent: number;
     maxDevPercent: number;

@@ -21,11 +21,11 @@
     }
   },
   "filter": {
-    "rugcheckMinScore": 70,
+    "rugcheckMaxScore": 60,
     "minPoolLiquiditySol": 20,
     "maxTop10Percent": 40,
     "maxDevPercent": 10,
-    "timeoutMs": 3000
+    "timeoutMs": 8000
   },
   "takeProfit": {
     "tier1TriggerPercent": 50,

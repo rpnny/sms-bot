@@ -10,13 +10,30 @@ export class SafetyFilter {
   async evaluate(token: string): Promise<FilterResult> {
     const scores: FilterResult["scores"] = {};
     try {
-      const report = await withTimeout(
-        fetchRugcheck(token),
-        this.cfg.filter.timeoutMs,
-        "rugcheck",
-      );
+      let report: RugReport | null = null;
+      try {
+        report = await withTimeout(
+          fetchRugcheck(token),
+          this.cfg.filter.timeoutMs,
+          "rugcheck",
+        );
+      } catch (err) {
+        // RugCheck timeout/unavailable — don't hard-reject in paper mode, let
+        // the rest of the pipeline decide. Live mode would be stricter.
+        log.warn({ err: (err as Error).message, token }, "rugcheck skipped");
+        scores.rugcheck_score = null;
+        scores.rugcheck_unavailable = true;
+        if (env.runMode === "live") {
+          return { passed: false, rejectReason: "rugcheck_unavailable", scores };
+        }
+        return { passed: true, scores };
+      }
       if (!report) {
-        return { passed: false, rejectReason: "rugcheck_unavailable", scores };
+        scores.rugcheck_unavailable = true;
+        if (env.runMode === "live") {
+          return { passed: false, rejectReason: "rugcheck_unavailable", scores };
+        }
+        return { passed: true, scores };
       }
 
       scores.rugcheck_score = report.score ?? null;
@@ -27,8 +44,9 @@ export class SafetyFilter {
       scores.lp_locked = report.lpLocked;
       scores.liquidity_sol = report.liquiditySol ?? null;
 
-      if (report.score == null || report.score < this.cfg.filter.rugcheckMinScore) {
-        return { passed: false, rejectReason: `low_score:${report.score}`, scores };
+      // RugCheck convention: HIGHER score = HIGHER risk. WSOL scores 1.
+      if (report.score != null && report.score > this.cfg.filter.rugcheckMaxScore) {
+        return { passed: false, rejectReason: `risky_score:${report.score}`, scores };
       }
       const dangerous = report.risks?.find(
         (r) => r.level === "danger" || /honeypot|high_risk/i.test(r.name),
@@ -68,7 +86,10 @@ export class SafetyFilter {
       return { passed: true, scores };
     } catch (err) {
       log.warn({ err, token }, "filter error");
-      return { passed: false, rejectReason: "filter_error", scores };
+      if (env.runMode === "live") {
+        return { passed: false, rejectReason: "filter_error", scores };
+      }
+      return { passed: true, scores };
     }
   }
 }
