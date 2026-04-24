@@ -51,7 +51,7 @@
   /* positions */
   .positions { display: flex; flex-direction: column; gap: 8px; }
   .pos-row {
-    display: grid; grid-template-columns: 1fr 80px 80px 80px 80px;
+    display: grid; grid-template-columns: 1fr 70px 80px 70px 80px 70px;
     gap: 8px; align-items: center; padding: 10px 12px;
     background: #1a1a1a; border-radius: 6px; border-left: 3px solid var(--accent);
   }
@@ -331,16 +331,22 @@ async function refresh() {
           <div class="pos-header pos-cell">来源</div>
           <div class="pos-header pos-cell">持仓 SOL</div>
           <div class="pos-header pos-cell">持续 min</div>
+          <div class="pos-header pos-cell">浮动 PnL</div>
           <div class="pos-header pos-cell">档位</div>
         </div>
-        ${positions.map(p => `
+        ${positions.map(p => {
+          const pct = p.unrealizedPct;
+          const pnlClass = pct == null ? '' : (pct >= 0 ? 'pnl-pos' : 'pnl-neg');
+          const pnlText = pct == null ? '—' : `${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%`;
+          return `
         <div class="pos-row">
           <div class="pos-token">${shortToken(p.token)}</div>
           <div class="pos-cell" style="color:var(--muted)">${p.signalSource}</div>
           <div class="pos-cell">${parseFloat(p.amountSol).toFixed(3)}</div>
           <div class="pos-cell">${p.ageMin}</div>
+          <div class="pos-cell ${pnlClass}">${pnlText}</div>
           <div class="pos-cell" style="color:var(--yellow)">${p.tier2Sold?'T2':p.tier1Sold?'T1':'—'}</div>
-        </div>`).join('')}`;
+        </div>`;}).join('')}`;
     }
 
     // exit reason bars

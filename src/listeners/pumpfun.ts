@@ -84,7 +84,10 @@ export class PumpFunListener extends EventEmitter {
       const minH = this.cfg.signals.pumpfun.minHolders;
       const minV = this.cfg.signals.pumpfun.minVolume1minSol;
       log.info({ token, holders, volume1minSol }, "pumpfun observation window done");
-      if (holders > minH && volume1minSol > minV) {
+      // volume1minSol may be unavailable (pump.fun frontend blocks bots).
+      // Skip the volume gate when it's null/unknown — rely on holder count alone.
+      const volumeOk = volume1minSol == null || volume1minSol > minV;
+      if (holders > minH && volumeOk) {
         const ev: SignalEvent = {
           source: "new_token",
           token,
@@ -103,7 +106,7 @@ export class PumpFunListener extends EventEmitter {
 
 interface PumpFunMetrics {
   holders: number;
-  volume1minSol: number;
+  volume1minSol: number | null;
 }
 
 async function fetchPumpFunMetrics(token: string): Promise<PumpFunMetrics | null> {
@@ -118,8 +121,7 @@ async function fetchPumpFunMetrics(token: string): Promise<PumpFunMetrics | null
       virtual_sol_reserves?: number;
     };
     const holders = data.holder_count ?? 0;
-    const volume1minSol = 0;
-    return { holders, volume1minSol };
+    return { holders, volume1minSol: null };
   } catch {
     return null;
   }

@@ -59,7 +59,7 @@ export class PositionManager {
 
   checkDailyHalt(): boolean {
     const start = new Date();
-    start.setHours(0, 0, 0, 0);
+    start.setUTCHours(0, 0, 0, 0);
     const loss = dailyRealizedLossSol(start);
     if (loss >= this.cfg.positions.dailyLossLimitSol) {
       if (!this.halted) {

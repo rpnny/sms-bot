@@ -10,8 +10,11 @@ interface FusedSignal extends SignalEvent {
   sizeSol: number;
 }
 
+const FUSE_DEDUP_MS = 30_000;
+
 export class SignalAggregator extends EventEmitter {
   private pending = new Map<string, SignalEvent[]>();
+  private lastEmitted = new Map<string, { sources: string; ts: number }>();
 
   constructor(private cfg: StrategyConfig) {
     super();
@@ -29,6 +32,15 @@ export class SignalAggregator extends EventEmitter {
     this.pending.set(ev.token, list);
 
     const fused = this.fuse(ev.token, list);
+    // Dedup: skip emit if we recently emitted the same fused source-set for this token.
+    // An upgrade (e.g. smart_money → both) still passes through.
+    const sourcesKey = Array.from(new Set(list.map((e) => e.source))).sort().join(",");
+    const last = this.lastEmitted.get(ev.token);
+    if (last && last.sources === sourcesKey && Date.now() - last.ts < FUSE_DEDUP_MS) {
+      log.debug({ token: ev.token, sources: sourcesKey }, "fused skipped (dedup)");
+      return;
+    }
+    this.lastEmitted.set(ev.token, { sources: sourcesKey, ts: Date.now() });
     this.emit("fused", fused);
 
     setTimeout(() => {

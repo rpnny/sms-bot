@@ -67,7 +67,7 @@ async function main(): Promise<void> {
   });
 
   const port = parseInt(optional("PORT", "3000"));
-  startServer(positions, port);
+  startServer(positions, port, monitor);
 
   smartListener.start();
   pumpListener.start();

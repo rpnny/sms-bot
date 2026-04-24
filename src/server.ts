@@ -3,10 +3,15 @@ import path from "node:path";
 import { db } from "./db.js";
 import { child, recentLogs } from "./logger.js";
 import type { PositionManager } from "./positions/manager.js";
+import type { PositionMonitor } from "./monitor/position-monitor.js";
 
 const log = child("server");
 
-export function startServer(positions: PositionManager, port = 3000): void {
+export function startServer(
+  positions: PositionManager,
+  port = 3000,
+  monitor?: PositionMonitor,
+): void {
   const app = express();
   const password = process.env.DASHBOARD_PASSWORD ?? "";
 
@@ -25,7 +30,7 @@ export function startServer(positions: PositionManager, port = 3000): void {
 
   app.get("/api/stats", (_req, res) => {
     const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
+    todayStart.setUTCHours(0, 0, 0, 0);
 
     const today = db.prepare(`
       SELECT
@@ -89,13 +94,23 @@ export function startServer(positions: PositionManager, port = 3000): void {
   app.get("/api/positions", (_req, res) => {
     const all = positions.all().map((p) => {
       const ageMin = ((Date.now() - p.entryTime) / 60_000).toFixed(1);
+      const currentPrice = monitor?.lastPrice(p.token);
+      const unrealizedPct =
+        currentPrice != null
+          ? ((currentPrice - p.entryPrice) / p.entryPrice) * 100
+          : null;
+      const unrealizedSol =
+        unrealizedPct != null ? (unrealizedPct / 100) * p.amountSol : null;
       return {
         token: p.token,
         entryPrice: p.entryPrice,
+        currentPrice: currentPrice ?? null,
         amountSol: p.amountSol,
         amountTokens: p.amountTokens,
         signalSource: p.signalSource,
         ageMin,
+        unrealizedPct: unrealizedPct != null ? Number(unrealizedPct.toFixed(2)) : null,
+        unrealizedSol: unrealizedSol != null ? Number(unrealizedSol.toFixed(4)) : null,
         tier1Sold: p.tier1Sold,
         tier2Sold: p.tier2Sold,
         mode: p.mode,

@@ -68,22 +68,29 @@ export class PaperExecutor {
     ratio: number;
     reason: ExitReason;
     maxGainPercent: number;
+    /** When true, skip Jupiter quote and book sale at zero (illiquid forced exit). */
+    force?: boolean;
   }): Promise<{ soldSol: number; pnlSol: number; pnlPercent: number } | null> {
-    const { position, ratio, reason, maxGainPercent } = params;
+    const { position, ratio, reason, maxGainPercent, force } = params;
     const sellTokens = Math.floor(position.amountTokens * ratio);
     if (sellTokens <= 0) return null;
 
-    const quote = await quoteSell({
-      tokenMint: position.token,
-      tokenAmount: String(sellTokens),
-      slippageBps: this.cfg.execution.sellSlippageBps,
-    });
-    if (!quote) {
-      log.warn({ token: position.token }, "paper sell: no quote");
-      return null;
+    let soldSol: number;
+    if (force) {
+      soldSol = 0;
+      log.warn({ token: position.token, reason }, "paper sell: forced exit (no quote)");
+    } else {
+      const quote = await quoteSell({
+        tokenMint: position.token,
+        tokenAmount: String(sellTokens),
+        slippageBps: this.cfg.execution.sellSlippageBps,
+      });
+      if (!quote) {
+        log.warn({ token: position.token }, "paper sell: no quote");
+        return null;
+      }
+      soldSol = Number(quote.outAmount) / 1e9;
     }
-
-    const soldSol = Number(quote.outAmount) / 1e9;
     const costSol = position.amountSol * ratio;
     const pnlSol = soldSol - costSol;
     const pnlPercent = (pnlSol / costSol) * 100;
@@ -114,7 +121,7 @@ export class PaperExecutor {
         triggeringWallets: position.triggeringWallets,
         entryPrice: position.entryPrice,
         entryTime: position.entryTime,
-        entryAmountSol: position.amountSol + costSol,
+        entryAmountSol: costSol,
         exitPrice: soldSol / sellTokens,
         exitTime: Date.now(),
         exitReason: reason,
