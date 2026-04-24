@@ -1,7 +1,7 @@
 import express from "express";
 import path from "node:path";
 import { db } from "./db.js";
-import { child } from "./logger.js";
+import { child, recentLogs } from "./logger.js";
 import type { PositionManager } from "./positions/manager.js";
 
 const log = child("server");
@@ -102,6 +102,15 @@ export function startServer(positions: PositionManager, port = 3000): void {
       };
     });
     res.json(all);
+  });
+
+  app.get("/api/logs", (req, res) => {
+    const limit = Math.min(Number(req.query.limit ?? 200), 500);
+    const minLevel = Number(req.query.minLevel ?? 30); // 30 = info
+    const lines = recentLogs(500)
+      .filter((l) => l.level >= minLevel)
+      .slice(-limit);
+    res.json(lines);
   });
 
   app.get("/api/rejects", (_req, res) => {

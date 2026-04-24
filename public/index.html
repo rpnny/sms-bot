@@ -88,6 +88,25 @@
   .reason-bar-fill  { height: 100%; border-radius: 3px; background: var(--blue); }
   .reason-bar-count { width: 30px; text-align: right; font-size: 11px; color: var(--muted); }
 
+  /* logs */
+  .logs-wrap { max-height: 360px; overflow-y: auto; background: #0a0a0a;
+               border: 1px solid var(--border); border-radius: 6px; padding: 8px; }
+  .log-line { font-family: 'SF Mono', monospace; font-size: 11px; line-height: 1.5;
+              white-space: pre-wrap; word-break: break-all; padding: 2px 4px; }
+  .log-time { color: #444; margin-right: 6px; }
+  .log-mod  { color: var(--accent); margin-right: 6px; }
+  .log-msg  { color: var(--text); }
+  .log-extra { color: var(--muted); margin-left: 6px; }
+  .log-info  { border-left: 2px solid transparent; }
+  .log-warn  { border-left: 2px solid var(--yellow); background: #211d0a; }
+  .log-error { border-left: 2px solid var(--red);    background: #2a0f0f; }
+  .log-debug { opacity: 0.55; }
+  .log-controls { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+  .log-controls select, .log-controls button {
+    background: #1a1a1a; color: var(--text); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 4px; font-family: inherit; font-size: 11px; cursor: pointer;
+  }
+
   .empty { color: var(--muted); font-size: 12px; text-align: center; padding: 24px; }
   #auth-overlay {
     position: fixed; inset: 0; background: var(--bg); display: flex;
@@ -145,6 +164,25 @@
   </div>
 
   <div class="section">
+    <div class="section-title">实时日志</div>
+    <div class="log-controls">
+      <label style="color:var(--muted);font-size:11px">级别</label>
+      <select id="log-level">
+        <option value="20">Debug+</option>
+        <option value="30" selected>Info+</option>
+        <option value="40">Warn+</option>
+        <option value="50">Error</option>
+      </select>
+      <label style="color:var(--muted);font-size:11px;margin-left:8px">
+        <input type="checkbox" id="log-autoscroll" checked> 自动滚动
+      </label>
+      <button onclick="document.getElementById('logs-wrap').innerHTML=''">清空</button>
+      <span style="color:var(--muted);font-size:11px;margin-left:auto" id="log-count">0 条</span>
+    </div>
+    <div class="logs-wrap" id="logs-wrap"></div>
+  </div>
+
+  <div class="section">
     <div class="section-title">最近交易</div>
     <div class="trades-wrap">
       <table>
@@ -161,6 +199,50 @@
 <script>
 let TOKEN = '';
 let chart = null;
+let lastLogT = 0;
+
+function levelName(l) {
+  if (l >= 50) return 'error';
+  if (l >= 40) return 'warn';
+  if (l >= 30) return 'info';
+  return 'debug';
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function refreshLogs() {
+  try {
+    const minLevel = document.getElementById('log-level').value;
+    const lines = await api('/api/logs?limit=500&minLevel=' + minLevel);
+    const wrap = document.getElementById('logs-wrap');
+    const autoscroll = document.getElementById('log-autoscroll').checked;
+    const nearBottom = wrap.scrollHeight - wrap.scrollTop - wrap.clientHeight < 40;
+    const fresh = lines.filter(l => l.t > lastLogT);
+    if (fresh.length === 0 && wrap.children.length > 0) return;
+    if (fresh.length === lines.length) wrap.innerHTML = '';
+    for (const l of fresh) {
+      lastLogT = Math.max(lastLogT, l.t);
+      const time = new Date(l.t).toLocaleTimeString('zh', {hour12:false});
+      const extra = l.extra ? ' ' + escapeHtml(JSON.stringify(l.extra)) : '';
+      const div = document.createElement('div');
+      div.className = 'log-line log-' + levelName(l.level);
+      div.innerHTML = `<span class="log-time">${time}</span>`
+        + (l.mod ? `<span class="log-mod">[${escapeHtml(l.mod)}]</span>` : '')
+        + `<span class="log-msg">${escapeHtml(l.msg)}</span>`
+        + `<span class="log-extra">${extra}</span>`;
+      wrap.appendChild(div);
+    }
+    // cap DOM at 800 nodes
+    while (wrap.children.length > 800) wrap.removeChild(wrap.firstChild);
+    document.getElementById('log-count').textContent = wrap.children.length + ' 条';
+    if (autoscroll && (nearBottom || fresh.length === lines.length)) {
+      wrap.scrollTop = wrap.scrollHeight;
+    }
+  } catch(e) {
+    if (e.message !== 'unauthorized') console.error(e);
+  }
+}
 
 function login() {
   TOKEN = document.getElementById('pwd-input').value;
@@ -303,7 +385,14 @@ async function refresh() {
 
 function init() {
   refresh();
+  refreshLogs();
   setInterval(refresh, 10000);
+  setInterval(refreshLogs, 3000);
+  document.getElementById('log-level').addEventListener('change', () => {
+    lastLogT = 0;
+    document.getElementById('logs-wrap').innerHTML = '';
+    refreshLogs();
+  });
 }
 
 // auto-login if no password configured
