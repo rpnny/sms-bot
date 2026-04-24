@@ -1,0 +1,66 @@
+{
+  "_comment": "auto-discovered 2026-04-24T14:09:15.056Z via gmgn-cli — review before merging into smart_wallets.json",
+  "source": "gmgn smartmoney + kol feeds",
+  "wallets": [
+    {
+      "address": "BQVz7fQ1WsQmSTMY3umdPEPPTm1sdcBcX9sP7o6kPRmB",
+      "label": "gmgn-1",
+      "note": "tags=top_renamed|kol|bullx|axiom buys=12 tokens=4 volumeUsd=1321"
+    },
+    {
+      "address": "65NRohHfdjJhm7oW9kvPfvT8jRWpxg2KbhecVGQSJ3jR",
+      "label": "gmgn-2",
+      "note": "tags=gmgn|kol|axiom|padre buys=11 tokens=3 volumeUsd=213"
+    },
+    {
+      "address": "Bi4rd5FH5bYEN8scZ7wevxNZyNmKHdaBcvewdPFxYdLt",
+      "label": "gmgn-3",
+      "note": "tags=photon|top_renamed|kol|padre|launchpad_smart|gmgn buys=6 tokens=3 volumeUsd=1003"
+    },
+    {
+      "address": "89HbgWduLwoxcofWpmn1EiF9wEdpgkNDEyPjzZ72mkDi",
+      "label": "gmgn-4",
+      "note": "tags=axiom|kol|gmgn|padre buys=5 tokens=3 volumeUsd=319"
+    },
+    {
+      "address": "BtMBMPkoNbnLF9Xn552guQq528KKXcsNBNNBre3oaQtr",
+      "label": "gmgn-5",
+      "note": "tags=trojan|photon|kol|app_smart_money|top_renamed|axiom|gmgn buys=5 tokens=3 volumeUsd=1259"
+    },
+    {
+      "address": "7xwDKXNG9dxMsBSCmiAThp7PyDaUXbm23irLr7iPeh7w",
+      "label": "gmgn-6",
+      "note": "tags=kol|axiom|padre buys=4 tokens=3 volumeUsd=943"
+    },
+    {
+      "address": "zeronaXJsbvPZFmzytV4RPXWBHQGMFcRCvoYaDNPiRL",
+      "label": "gmgn-7",
+      "note": "tags=smart_degen buys=5 tokens=2 volumeUsd=2"
+    },
+    {
+      "address": "719sfKUjiMThumTt2u39VMGn612BZyCcwbM5Pe8SqFYz",
+      "label": "gmgn-8",
+      "note": "tags=bullx|axiom|kol|app_smart_money|padre buys=4 tokens=2 volumeUsd=594"
+    },
+    {
+      "address": "4YzpSZpxDdjNf3unjkCtdWEsz2FL5mok7e5XQaDNqry8",
+      "label": "gmgn-9",
+      "note": "tags=gmgn|kol|app_smart_money buys=4 tokens=2 volumeUsd=1019"
+    },
+    {
+      "address": "1aC2FgH1tujX87Bv9yMVbda2sPiRDNCsjMJoJjw3n6C",
+      "label": "gmgn-10",
+      "note": "tags=axiom|smart_degen buys=3 tokens=2 volumeUsd=674"
+    },
+    {
+      "address": "JAGPLMkgPWRxFJekMU8DRHRurw968GGYHRMEKUWheYcD",
+      "label": "gmgn-11",
+      "note": "tags=smart_degen buys=2 tokens=2 volumeUsd=32"
+    },
+    {
+      "address": "FAicXNV5FVqtfbpn4Zccs71XcfGeyxBSGbqLDyDJZjke",
+      "label": "gmgn-12",
+      "note": "tags=top_renamed|kol|axiom|padre|launchpad_smart buys=2 tokens=2 volumeUsd=326"
+    }
+  ]
+}

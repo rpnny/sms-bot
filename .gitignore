@@ -8,3 +8,10 @@ data/
 *.sqlite-journal
 *-wallet.json
 .DS_Store
+
+# Local agent/skill files
+.agents/
+.claude/
+.trae/
+skills/
+skills-lock.json
