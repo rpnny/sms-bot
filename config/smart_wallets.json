@@ -1,22 +1,133 @@
 {
-  "_comment": "17 个 smart money 钱包，周度复盘时根据 triggering_wallets PnL 贡献淘汰末位",
+  "_comment": "last auto-refresh: 2026-04-24T14:14:55.735Z — 17 existing + 12 added, total 29",
   "wallets": [
-    { "address": "78N177fzNJpp8pG49xDv1efYcTMSzo9tPTKEA9mAVkh2", "label": "seed-1" },
-    { "address": "GQdzfQynbv28BnDAvPNBzWasBWeFyfqQQJNsACWV9odK", "label": "seed-2" },
-    { "address": "CVnRWFefzdHf3ALGK8aEc8PTvCsN6zG3JfcyPeWmQPUZ", "label": "seed-3" },
-    { "address": "65paNEG8m7mCVoASVF2KbRdU21aKXdASSB9G3NjCSQuE", "label": "seed-4" },
-    { "address": "4BdKaxN8G6ka4GYtQQWk4G4dZRUTX2vQH9GcXdBREFUk", "label": "seed-5" },
-    { "address": "HZXdwRRw27kfpYtTqc7bMfrRgK3LSUaiKDFtqoEihik8", "label": "wallet-6" },
-    { "address": "FHGL93a95byonJbk8PzZFhCNuxDwgqRwUXcUkdkfeMNA", "label": "wallet-7" },
-    { "address": "DYAn4XpAkN5mhiXkRB7dGq4Jadnx6XYgu8L5b3WGhbrt", "label": "wallet-8" },
-    { "address": "EoxtfjMw48FxC158esdyvbejj2t6tQw1VTxgHwcHkb72", "label": "wallet-9" },
-    { "address": "CXSToBpiaqxXtLtf3FK5iXa34ERDd9J4PZ17jKuf2rke", "label": "wallet-10" },
-    { "address": "GTLLN1nkjBFFXmu4EGs3ACFKfJXHzGXveSdUngDiAn7V", "label": "wallet-11" },
-    { "address": "yMBRVpuVm7bgASPEvEhVtKTbz4g4UhNFEDz8kBmHAv1", "label": "wallet-12" },
-    { "address": "ExkBDVdrrN7woPX42v5sfJa7AvHKhAb2uU9Fwzhhokno", "label": "wallet-13" },
-    { "address": "8NVkytV1CtoNBXGFtwXwh4KQdbgVcA6hFmym1gMuRHru", "label": "wallet-14" },
-    { "address": "AkAjo4wP54oRRhSD4fapd4nPUGbDYybWXfUbEw25mS3E", "label": "wallet-15" },
-    { "address": "9jyqFiLnruggwNn4EQwBNFXwpbLM9hrA4hV59ytyAVVz", "label": "wallet-16" },
-    { "address": "HfN9JFxwS89fERT8of2dt1it6G3P2ia5sJc5J8GkwU5k", "label": "wallet-17" }
+    {
+      "address": "78N177fzNJpp8pG49xDv1efYcTMSzo9tPTKEA9mAVkh2",
+      "label": "seed-1"
+    },
+    {
+      "address": "GQdzfQynbv28BnDAvPNBzWasBWeFyfqQQJNsACWV9odK",
+      "label": "seed-2"
+    },
+    {
+      "address": "CVnRWFefzdHf3ALGK8aEc8PTvCsN6zG3JfcyPeWmQPUZ",
+      "label": "seed-3"
+    },
+    {
+      "address": "65paNEG8m7mCVoASVF2KbRdU21aKXdASSB9G3NjCSQuE",
+      "label": "seed-4"
+    },
+    {
+      "address": "4BdKaxN8G6ka4GYtQQWk4G4dZRUTX2vQH9GcXdBREFUk",
+      "label": "seed-5"
+    },
+    {
+      "address": "HZXdwRRw27kfpYtTqc7bMfrRgK3LSUaiKDFtqoEihik8",
+      "label": "wallet-6"
+    },
+    {
+      "address": "FHGL93a95byonJbk8PzZFhCNuxDwgqRwUXcUkdkfeMNA",
+      "label": "wallet-7"
+    },
+    {
+      "address": "DYAn4XpAkN5mhiXkRB7dGq4Jadnx6XYgu8L5b3WGhbrt",
+      "label": "wallet-8"
+    },
+    {
+      "address": "EoxtfjMw48FxC158esdyvbejj2t6tQw1VTxgHwcHkb72",
+      "label": "wallet-9"
+    },
+    {
+      "address": "CXSToBpiaqxXtLtf3FK5iXa34ERDd9J4PZ17jKuf2rke",
+      "label": "wallet-10"
+    },
+    {
+      "address": "GTLLN1nkjBFFXmu4EGs3ACFKfJXHzGXveSdUngDiAn7V",
+      "label": "wallet-11"
+    },
+    {
+      "address": "yMBRVpuVm7bgASPEvEhVtKTbz4g4UhNFEDz8kBmHAv1",
+      "label": "wallet-12"
+    },
+    {
+      "address": "ExkBDVdrrN7woPX42v5sfJa7AvHKhAb2uU9Fwzhhokno",
+      "label": "wallet-13"
+    },
+    {
+      "address": "8NVkytV1CtoNBXGFtwXwh4KQdbgVcA6hFmym1gMuRHru",
+      "label": "wallet-14"
+    },
+    {
+      "address": "AkAjo4wP54oRRhSD4fapd4nPUGbDYybWXfUbEw25mS3E",
+      "label": "wallet-15"
+    },
+    {
+      "address": "9jyqFiLnruggwNn4EQwBNFXwpbLM9hrA4hV59ytyAVVz",
+      "label": "wallet-16"
+    },
+    {
+      "address": "HfN9JFxwS89fERT8of2dt1it6G3P2ia5sJc5J8GkwU5k",
+      "label": "wallet-17"
+    },
+    {
+      "address": "BQVz7fQ1WsQmSTMY3umdPEPPTm1sdcBcX9sP7o6kPRmB",
+      "label": "auto-2026-04-24-1",
+      "note": "tags=top_renamed|kol|bullx|axiom buys=12 tokens=4 volumeUsd=1321"
+    },
+    {
+      "address": "65NRohHfdjJhm7oW9kvPfvT8jRWpxg2KbhecVGQSJ3jR",
+      "label": "auto-2026-04-24-2",
+      "note": "tags=gmgn|kol|axiom|padre buys=11 tokens=3 volumeUsd=213"
+    },
+    {
+      "address": "Bi4rd5FH5bYEN8scZ7wevxNZyNmKHdaBcvewdPFxYdLt",
+      "label": "auto-2026-04-24-3",
+      "note": "tags=photon|top_renamed|kol|padre|launchpad_smart|gmgn buys=6 tokens=3 volumeUsd=1003"
+    },
+    {
+      "address": "89HbgWduLwoxcofWpmn1EiF9wEdpgkNDEyPjzZ72mkDi",
+      "label": "auto-2026-04-24-4",
+      "note": "tags=axiom|kol|gmgn|padre buys=5 tokens=3 volumeUsd=319"
+    },
+    {
+      "address": "BtMBMPkoNbnLF9Xn552guQq528KKXcsNBNNBre3oaQtr",
+      "label": "auto-2026-04-24-5",
+      "note": "tags=trojan|photon|kol|app_smart_money|top_renamed|axiom|gmgn buys=5 tokens=3 volumeUsd=1259"
+    },
+    {
+      "address": "7xwDKXNG9dxMsBSCmiAThp7PyDaUXbm23irLr7iPeh7w",
+      "label": "auto-2026-04-24-6",
+      "note": "tags=kol|axiom|padre buys=4 tokens=3 volumeUsd=943"
+    },
+    {
+      "address": "zeronaXJsbvPZFmzytV4RPXWBHQGMFcRCvoYaDNPiRL",
+      "label": "auto-2026-04-24-7",
+      "note": "tags=smart_degen buys=5 tokens=2 volumeUsd=2"
+    },
+    {
+      "address": "719sfKUjiMThumTt2u39VMGn612BZyCcwbM5Pe8SqFYz",
+      "label": "auto-2026-04-24-8",
+      "note": "tags=bullx|axiom|kol|app_smart_money|padre buys=4 tokens=2 volumeUsd=594"
+    },
+    {
+      "address": "4YzpSZpxDdjNf3unjkCtdWEsz2FL5mok7e5XQaDNqry8",
+      "label": "auto-2026-04-24-9",
+      "note": "tags=gmgn|kol|app_smart_money buys=4 tokens=2 volumeUsd=1019"
+    },
+    {
+      "address": "1aC2FgH1tujX87Bv9yMVbda2sPiRDNCsjMJoJjw3n6C",
+      "label": "auto-2026-04-24-10",
+      "note": "tags=axiom|smart_degen buys=3 tokens=2 volumeUsd=674"
+    },
+    {
+      "address": "JAGPLMkgPWRxFJekMU8DRHRurw968GGYHRMEKUWheYcD",
+      "label": "auto-2026-04-24-11",
+      "note": "tags=smart_degen buys=2 tokens=2 volumeUsd=32"
+    },
+    {
+      "address": "FAicXNV5FVqtfbpn4Zccs71XcfGeyxBSGbqLDyDJZjke",
+      "label": "auto-2026-04-24-12",
+      "note": "tags=top_renamed|kol|axiom|padre|launchpad_smart buys=2 tokens=2 volumeUsd=326"
+    }
   ]
 }

@@ -9,7 +9,8 @@
     "start": "tsx src/index.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "discover": "tsx src/tools/discover-wallets.ts"
+    "discover": "tsx src/tools/discover-wallets.ts",
+    "merge-wallets": "tsx src/tools/merge-wallets.ts"
   },
   "dependencies": {
     "@solana/spl-token": "^0.4.8",

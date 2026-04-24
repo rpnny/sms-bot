@@ -1,0 +1,59 @@
+name: Refresh smart wallets
+
+on:
+  schedule:
+    # Every Monday 02:00 UTC (= 10:00 Asia/Shanghai)
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm install
+
+      - name: Install gmgn-cli
+        run: npm install -g gmgn-cli
+
+      - name: Configure GMGN API key
+        env:
+          GMGN_API_KEY: ${{ secrets.GMGN_API_KEY }}
+        run: |
+          mkdir -p ~/.config/gmgn
+          echo "GMGN_API_KEY=$GMGN_API_KEY" > ~/.config/gmgn/.env
+          chmod 600 ~/.config/gmgn/.env
+
+      - name: Run discovery
+        run: npm run discover
+
+      - name: Merge into live list
+        id: merge
+        run: |
+          set -e
+          out=$(npm run merge-wallets --silent)
+          echo "$out"
+          if echo "$out" | tail -n 1 | grep -q CHANGED; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit & push
+        if: steps.merge.outputs.changed == 'true'
+        run: |
+          git config user.name "sms-bot[bot]"
+          git config user.email "sms-bot@users.noreply.github.com"
+          git add config/smart_wallets.json config/smart_wallets.candidates.json
+          git commit -m "chore: auto-refresh smart wallets $(date -u +%Y-%m-%d)"
+          git push
