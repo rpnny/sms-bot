@@ -1,10 +1,22 @@
 {
-  "_comment": "种子名单, 后续根据 triggering_wallets PnL 贡献更新",
+  "_comment": "17 个 smart money 钱包，周度复盘时根据 triggering_wallets PnL 贡献淘汰末位",
   "wallets": [
     { "address": "78N177fzNJpp8pG49xDv1efYcTMSzo9tPTKEA9mAVkh2", "label": "seed-1" },
     { "address": "GQdzfQynbv28BnDAvPNBzWasBWeFyfqQQJNsACWV9odK", "label": "seed-2" },
     { "address": "CVnRWFefzdHf3ALGK8aEc8PTvCsN6zG3JfcyPeWmQPUZ", "label": "seed-3" },
     { "address": "65paNEG8m7mCVoASVF2KbRdU21aKXdASSB9G3NjCSQuE", "label": "seed-4" },
-    { "address": "4BdKaxN8G6ka4GYtQQWk4G4dZRUTX2vQH9GcXdBREFUk", "label": "seed-5" }
+    { "address": "4BdKaxN8G6ka4GYtQQWk4G4dZRUTX2vQH9GcXdBREFUk", "label": "seed-5" },
+    { "address": "HZXdwRRw27kfpYtTqc7bMfrRgK3LSUaiKDFtqoEihik8", "label": "wallet-6" },
+    { "address": "FHGL93a95byonJbk8PzZFhCNuxDwgqRwUXcUkdkfeMNA", "label": "wallet-7" },
+    { "address": "DYAn4XpAkN5mhiXkRB7dGq4Jadnx6XYgu8L5b3WGhbrt", "label": "wallet-8" },
+    { "address": "EoxtfjMw48FxC158esdyvbejj2t6tQw1VTxgHwcHkb72", "label": "wallet-9" },
+    { "address": "CXSToBpiaqxXtLtf3FK5iXa34ERDd9J4PZ17jKuf2rke", "label": "wallet-10" },
+    { "address": "GTLLN1nkjBFFXmu4EGs3ACFKfJXHzGXveSdUngDiAn7V", "label": "wallet-11" },
+    { "address": "yMBRVpuVm7bgASPEvEhVtKTbz4g4UhNFEDz8kBmHAv1", "label": "wallet-12" },
+    { "address": "ExkBDVdrrN7woPX42v5sfJa7AvHKhAb2uU9Fwzhhokno", "label": "wallet-13" },
+    { "address": "8NVkytV1CtoNBXGFtwXwh4KQdbgVcA6hFmym1gMuRHru", "label": "wallet-14" },
+    { "address": "AkAjo4wP54oRRhSD4fapd4nPUGbDYybWXfUbEw25mS3E", "label": "wallet-15" },
+    { "address": "9jyqFiLnruggwNn4EQwBNFXwpbLM9hrA4hV59ytyAVVz", "label": "wallet-16" },
+    { "address": "HfN9JFxwS89fERT8of2dt1it6G3P2ia5sJc5J8GkwU5k", "label": "wallet-17" }
   ]
 }
