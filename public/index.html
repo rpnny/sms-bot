@@ -206,7 +206,7 @@ async function refresh() {
     document.getElementById('s-pos').textContent = stats.activePositions;
     document.getElementById('s-wr2').textContent = wr + '%';
     document.getElementById('s-wr2').className = 'card-value ' + (parseFloat(wr) >= 50 ? 'green' : 'red');
-    document.getElementById('s-wr').textContent = `${t.wins}W / ${t.losses}L`;
+    document.getElementById('s-wr').textContent = `${t.wins ?? 0}W / ${t.losses ?? 0}L`;
 
     // pnl chart
     const labels = curve.map(p => fmtTime(p.t));
