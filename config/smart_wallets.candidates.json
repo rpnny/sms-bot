@@ -1,66 +1,101 @@
 {
-  "_comment": "auto-discovered 2026-06-22T07:24:02.767Z via gmgn-cli — review before merging into smart_wallets.json",
+  "_comment": "auto-discovered 2026-06-29T06:47:11.891Z via gmgn-cli — review before merging into smart_wallets.json",
   "source": "gmgn smartmoney + kol feeds",
   "wallets": [
     {
-      "address": "14LYvJoKPK9pCuNJqT6cJEaR1q3FNsfCtopbSXD8b8DM",
+      "address": "4vw54BmAogeRV3vPKWyFet5yf8DTLcREzdSzx4rw9Ud9",
       "label": "gmgn-1",
-      "note": "tags=smart_degen|axiom buys=16 tokens=4 volumeUsd=488"
+      "note": "tags=photon|kol|padre|top_followed|top_renamed|axiom buys=21 tokens=7 volumeUsd=1188"
     },
     {
-      "address": "AVjEtg2ECYKXYeqdRQXvaaAZBjfTjYuSMTR4WLhKoeQN",
+      "address": "EmR8n7bioWBgRkhffvY4CYjaW9Bs5VZdMQZESCRYxAaj",
       "label": "gmgn-2",
-      "note": "tags=kol|top_followed|top_renamed|axiom buys=10 tokens=4 volumeUsd=896"
+      "note": "tags=smart_degen buys=5 tokens=5 volumeUsd=2479"
     },
     {
-      "address": "HmBmSYwYEgEZuBUYuDs9xofyqBAkw4ywugB1d7R7sTGh",
+      "address": "CsXEsoo3iL2QBErfxBQCUw4hvaV7ni9Geecy3pdvSaf",
       "label": "gmgn-3",
-      "note": "tags=kol|wash_trader|photon|top_followed|top_renamed|axiom buys=7 tokens=4 volumeUsd=621"
+      "note": "tags=smart_degen buys=5 tokens=5 volumeUsd=1796"
     },
     {
-      "address": "DZAa55HwXgv5hStwaTEJGXZz1DhHejvpb7Yr762urXam",
+      "address": "CF7rajKuxb6Zj683CEDtrs6NA88UkMhE87sqKQJJf6vY",
       "label": "gmgn-4",
-      "note": "tags=bullx|kol|axiom buys=13 tokens=3 volumeUsd=626"
+      "note": "tags=smart_degen buys=5 tokens=5 volumeUsd=2450"
     },
     {
-      "address": "GCxRVYmx7639heNoUWSuzca8bYAb488kTJ4dBjUY7jdy",
+      "address": "6pJfJAvZuXs17wZovT9JkvXxegsWmwadhqz7Be8BaCZZ",
       "label": "gmgn-5",
-      "note": "tags=smart_degen buys=11 tokens=3 volumeUsd=242"
+      "note": "tags=fresh_wallet|smart_degen|fomo buys=6 tokens=3 volumeUsd=26"
     },
     {
-      "address": "7xwDKXNG9dxMsBSCmiAThp7PyDaUXbm23irLr7iPeh7w",
+      "address": "kiLogfWUXp7nby7Xi6R9t7u8ERQyRdAzg6wBjvuE49u",
       "label": "gmgn-6",
-      "note": "tags=kol|axiom|gmgn|padre buys=4 tokens=3 volumeUsd=510"
+      "note": "tags=kol|axiom|padre buys=6 tokens=3 volumeUsd=1040"
+    },
+    {
+      "address": "2MgTcnmVrLpUxiHJiEByvaoKTNTReBDvghf8CgL4hmBC",
+      "label": "gmgn-7",
+      "note": "tags=smart_degen|gmgn buys=3 tokens=3 volumeUsd=313"
+    },
+    {
+      "address": "ardinRsN1mNYVeoJWTBsWeYeXvuR9UUDGMsCDKpb6AT",
+      "label": "gmgn-8",
+      "note": "tags=kol|wash_trader|top_followed|launchpad_smart|axiom buys=3 tokens=3 volumeUsd=709"
+    },
+    {
+      "address": "ART5dr4bDic2sQVZoFheEmUxwQq5VGSx9he7JxHcXNQD",
+      "label": "gmgn-9",
+      "note": "tags=kol buys=3 tokens=3 volumeUsd=696"
     },
     {
       "address": "EQaxqKT3N981QBmdSUGNzAGK5S26zUwAdRHhBCgn87zD",
-      "label": "gmgn-7",
-      "note": "tags=kol|padre|trojan|top_followed|top_renamed|axiom buys=3 tokens=3 volumeUsd=184"
-    },
-    {
-      "address": "8LmuMPW5f6EKFPnAqXnzEmgQ52kaWoCna44SFTf1DMFQ",
-      "label": "gmgn-8",
-      "note": "tags=kol buys=3 tokens=3 volumeUsd=12"
-    },
-    {
-      "address": "2T5NgDDidkvhJQg8AHDi74uCFwgp25pYFMRZXBaCUNBH",
-      "label": "gmgn-9",
-      "note": "tags=photon|kol|top_followed|top_renamed|padre buys=4 tokens=2 volumeUsd=6"
-    },
-    {
-      "address": "AgTM7bcPQo2kkru8o2igeiwbAjJY2bubEHHZUQPRhyqG",
       "label": "gmgn-10",
-      "note": "tags=smart_degen buys=2 tokens=2 volumeUsd=106"
+      "note": "tags=kol|padre|trojan|top_followed|top_renamed|axiom buys=10 tokens=2 volumeUsd=71"
     },
     {
-      "address": "71pAfN1nJhcLaezSRYvwdsNFE9PnY9hNfcxB4nZ1gdAp",
+      "address": "5B52w1ZW9tuwUduueP5J7HXz5AcGfruGoX6YoAudvyxG",
       "label": "gmgn-11",
-      "note": "tags=smart_degen buys=2 tokens=2 volumeUsd=187"
+      "note": "tags=kol|app_smart_money|axiom|padre buys=5 tokens=2 volumeUsd=232"
     },
     {
-      "address": "69z4qTgQ5DBRTJvnQzx2h8jZhNsv5UgADotEwwKUm2JS",
+      "address": "8LUtQLSVoKewkXXHSsWJA9sio9cH7Q4hSfKVm5cRk7QY",
       "label": "gmgn-12",
-      "note": "tags=bluechip_owner|kol|arbitrager|gmgn buys=2 tokens=2 volumeUsd=74"
+      "note": "tags=smart_degen|axiom buys=4 tokens=2 volumeUsd=178"
+    },
+    {
+      "address": "7pDhG6NqfzQzw5KvtGXJbVRUh4iTBgYAn68BSKjdMNC1",
+      "label": "gmgn-13",
+      "note": "tags=kol|bullx|trojan|top_followed|launchpad_smart|axiom buys=4 tokens=2 volumeUsd=195"
+    },
+    {
+      "address": "FpwkMYGqiuQFUzHgwhaNnpm4b7Zu17EKZbrBaJEGsDae",
+      "label": "gmgn-14",
+      "note": "tags=smart_degen buys=3 tokens=2 volumeUsd=215"
+    },
+    {
+      "address": "2FQxWg7fDkohd69inVSGBnu7jBSGjVCpjjiaDSB9u13X",
+      "label": "gmgn-15",
+      "note": "tags=fresh_wallet|smart_degen buys=2 tokens=2 volumeUsd=849"
+    },
+    {
+      "address": "FLiYfD2z5NRpCuBg2hx6zM4UooVtvtD6ssQFUNpuPGEQ",
+      "label": "gmgn-16",
+      "note": "tags=smart_degen buys=2 tokens=2 volumeUsd=499"
+    },
+    {
+      "address": "DJ5yi1s75qdEKahdCFekJnG8A2TRwLj3RB2HTRBXULxG",
+      "label": "gmgn-17",
+      "note": "tags=kol|gmgn buys=2 tokens=2 volumeUsd=198"
+    },
+    {
+      "address": "EHg5YkU2SZBTvuT87rUsvxArGp3HLeye1fXaSDfuMyaf",
+      "label": "gmgn-18",
+      "note": "tags=photon|kol|app_smart_money|trojan|top_followed|top_renamed|axiom buys=2 tokens=2 volumeUsd=496"
+    },
+    {
+      "address": "J485YzQjuJPLYoFEYjrjxd7NAoLHTiyUU63JwK7kLxRr",
+      "label": "gmgn-19",
+      "note": "tags=kol|app_smart_money|axiom|top_followed|top_renamed|gmgn buys=2 tokens=2 volumeUsd=360"
     }
   ]
 }
