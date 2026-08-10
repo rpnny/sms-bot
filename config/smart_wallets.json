@@ -1,5 +1,5 @@
 {
-  "_comment": "last auto-refresh: 2026-08-03T05:41:26.746Z — 50 existing + 8 added, total 50",
+  "_comment": "last auto-refresh: 2026-08-10T03:53:27.091Z — 50 existing + 8 added, total 50",
   "wallets": [
     {
       "address": "78N177fzNJpp8pG49xDv1efYcTMSzo9tPTKEA9mAVkh2",
@@ -68,46 +68,6 @@
     {
       "address": "HfN9JFxwS89fERT8of2dt1it6G3P2ia5sJc5J8GkwU5k",
       "label": "wallet-17"
-    },
-    {
-      "address": "Ax5uo67F3Xxcj3SULnZAs7PKro6xGYMFwaeeiFedu2wx",
-      "label": "auto-2026-07-06-5",
-      "note": "tags=fresh_wallet|smart_degen|axiom buys=9 tokens=2 volumeUsd=181"
-    },
-    {
-      "address": "BCagckXeMChUKrHEd6fKFA1uiWDtcmCXMsqaheLiUPJd",
-      "label": "auto-2026-07-06-6",
-      "note": "tags=wash_trader|bullx|gmgn|axiom buys=7 tokens=2 volumeUsd=193"
-    },
-    {
-      "address": "2nhqxaPjXQM7jmGP4pk4D5gXdmPtAbZGnNBGDcyqHS73",
-      "label": "auto-2026-07-06-7",
-      "note": "tags=smart_degen|axiom buys=4 tokens=2 volumeUsd=944"
-    },
-    {
-      "address": "mW4PZB45isHmnjGkLpJvjKBzVS5NXzTJ8UDyug4gTsM",
-      "label": "auto-2026-07-06-8",
-      "note": "tags=photon|kol|padre|top_followed|top_renamed|axiom buys=4 tokens=2 volumeUsd=282"
-    },
-    {
-      "address": "FXE4w73n3Ar62ZpthSqSCvdq6igZMThBFsHJoLrAJQfv",
-      "label": "auto-2026-07-06-9",
-      "note": "tags=smart_degen buys=2 tokens=2 volumeUsd=298"
-    },
-    {
-      "address": "Hk8e3jvYNTGTobcCNv7LG7py7DStLJqPJ1cYTbhKuaWf",
-      "label": "auto-2026-07-06-10",
-      "note": "tags=gmgn|smart_degen|axiom buys=2 tokens=2 volumeUsd=271"
-    },
-    {
-      "address": "97K6nsFhBWDKwQf6heDDhDtsCRC4779LPHSFZkc2zqK4",
-      "label": "auto-2026-07-13-1",
-      "note": "tags=kol|wash_trader|gmgn buys=12 tokens=6 volumeUsd=4021"
-    },
-    {
-      "address": "Bi4rd5FH5bYEN8scZ7wevxNZyNmKHdaBcvewdPFxYdLt",
-      "label": "auto-2026-07-13-2",
-      "note": "tags=photon|kol|padre|axiom|top_followed|top_renamed|gmgn buys=22 tokens=3 volumeUsd=995"
     },
     {
       "address": "31iRQFxAApGY6LAXm16QDXmPFHSeY2mP4dW96P22iTBV",
@@ -233,6 +193,46 @@
       "address": "G6fUXjMKPJzCY1rveAE6Qm7wy5U3vZgKDJmN1VPAdiZC",
       "label": "auto-2026-08-03-8",
       "note": "tags=wash_trader|top_followed|top_renamed|smart_degen|axiom buys=2 tokens=2 volumeUsd=429"
+    },
+    {
+      "address": "BCnqsPEtA1TkgednYEebRpkmwFRJDCjMQcKZMMtEdArc",
+      "label": "auto-2026-08-10-1",
+      "note": "tags=photon|kol|padre|launchpad_smart|top_followed|top_renamed|axiom buys=5 tokens=4 volumeUsd=299"
+    },
+    {
+      "address": "GSPJTDUrWCXg5LYZ5Qo2Y5fBbAWrL9G6f56KvvZM7jL9",
+      "label": "auto-2026-08-10-2",
+      "note": "tags=smart_degen buys=3 tokens=3 volumeUsd=167"
+    },
+    {
+      "address": "2fg5QD1eD7rzNNCsvnhmXFm5hqNgwTTG8p7kQ6f3rx6f",
+      "label": "auto-2026-08-10-3",
+      "note": "tags=gmgn|wash_trader|kol|top_followed|top_renamed|axiom buys=6 tokens=2 volumeUsd=341"
+    },
+    {
+      "address": "4vw54BmAogeRV3vPKWyFet5yf8DTLcREzdSzx4rw9Ud9",
+      "label": "auto-2026-08-10-4",
+      "note": "tags=photon|kol|padre|top_followed|top_renamed|axiom buys=5 tokens=2 volumeUsd=474"
+    },
+    {
+      "address": "suqh5sHtr8HyJ7q8scBimULPkPpA557prMG47xCHQfK",
+      "label": "auto-2026-08-10-5",
+      "note": "tags=kol|photon|top_followed|top_renamed|axiom buys=4 tokens=2 volumeUsd=257"
+    },
+    {
+      "address": "498g1rVnFcnjBjpfw1xyqA1WvgQXUU8RWuELjxkjAayQ",
+      "label": "auto-2026-08-10-6",
+      "note": "tags=kol|fomo buys=3 tokens=2 volumeUsd=2577"
+    },
+    {
+      "address": "2oDsdeckeWi7RuwZt5cZVjUuN4yNouUvCGyTQm5ReiQX",
+      "label": "auto-2026-08-10-7",
+      "note": "tags=smart_degen|padre buys=2 tokens=2 volumeUsd=305"
+    },
+    {
+      "address": "DuQabFqdC9eeBULVa7TTdZYxe8vK8ct5DZr4Xcf7docy",
+      "label": "auto-2026-08-10-8",
+      "note": "tags=kol|app_smart_money|arbitrager|padre|axiom buys=2 tokens=2 volumeUsd=1518"
     }
   ]
 }
