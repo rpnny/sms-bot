@@ -1,5 +1,5 @@
 {
-  "_comment": "last auto-refresh: 2026-08-24T03:01:52.232Z — 50 existing + 8 added, total 50",
+  "_comment": "last auto-refresh: 2026-08-31T08:08:46.832Z — 50 existing + 5 added, total 50",
   "wallets": [
     {
       "address": "78N177fzNJpp8pG49xDv1efYcTMSzo9tPTKEA9mAVkh2",
@@ -68,31 +68,6 @@
     {
       "address": "HfN9JFxwS89fERT8of2dt1it6G3P2ia5sJc5J8GkwU5k",
       "label": "wallet-17"
-    },
-    {
-      "address": "AvzzD7SnRHb8Kv8dRk1JFYdWVcNtYhTybk2KbDWKB5ki",
-      "label": "auto-2026-07-27-7",
-      "note": "tags=app_smart_money|kol|gmgn buys=2 tokens=2 volumeUsd=454"
-    },
-    {
-      "address": "B7cRRKmjDt5KkFKfhD3NicgwywvkicgHvqVySU4LN4od",
-      "label": "auto-2026-08-03-1",
-      "note": "tags=fomo|smart_degen|axiom buys=8 tokens=4 volumeUsd=376"
-    },
-    {
-      "address": "EQaxqKT3N981QBmdSUGNzAGK5S26zUwAdRHhBCgn87zD",
-      "label": "auto-2026-08-03-2",
-      "note": "tags=kol|padre|trojan|top_followed|top_renamed|axiom buys=9 tokens=3 volumeUsd=325"
-    },
-    {
-      "address": "3jezhDoBDKE5ehjgWYj6y5tuBQoum3r3nmbAM7qVFKrL",
-      "label": "auto-2026-08-03-3",
-      "note": "tags=kol|gmgn buys=7 tokens=3 volumeUsd=18"
-    },
-    {
-      "address": "3AfZNMNnHXe4q53715YiWRA1zK5ndtLrvgS6yJHunbHy",
-      "label": "auto-2026-08-03-4",
-      "note": "tags=smart_degen|axiom buys=9 tokens=2 volumeUsd=346"
     },
     {
       "address": "71PCu3E4JP5RDBoY6wJteqzxkKNXLyE1byg5BTAL9UtQ",
@@ -233,6 +208,31 @@
       "address": "Etg7hBP3m4opJZK5PV6SGsvcAunjLqdUNYUwA8m8e6S2",
       "label": "auto-2026-08-24-8",
       "note": "tags=smart_degen|axiom|padre|fomo buys=2 tokens=2 volumeUsd=396"
+    },
+    {
+      "address": "E7gozEiAPNhpJsdS52amhhN2XCAqLZa7WPrhyR6C8o4S",
+      "label": "auto-2026-08-31-1",
+      "note": "tags=kol|axiom|smart_degen|top_followed|top_renamed buys=4 tokens=3 volumeUsd=2592"
+    },
+    {
+      "address": "765aJmzHN5ouE6VA9A4RFmv2iijZsW7gCAawoipRXLvm",
+      "label": "auto-2026-08-31-2",
+      "note": "tags=kol|gmgn buys=4 tokens=3 volumeUsd=546"
+    },
+    {
+      "address": "2CXbN6nuTTb4vCrtYM89SfQHMMKGPAW4mvFe6Ht4Yo6z",
+      "label": "auto-2026-08-31-3",
+      "note": "tags=trojan|kol|axiom buys=6 tokens=2 volumeUsd=377"
+    },
+    {
+      "address": "CC6DfePLea5UBREmGnHVCSjJRy4nEF1xuF6D6MbxdxTf",
+      "label": "auto-2026-08-31-4",
+      "note": "tags=smart_degen|gmgn buys=2 tokens=2 volumeUsd=102"
+    },
+    {
+      "address": "719sfKUjiMThumTt2u39VMGn612BZyCcwbM5Pe8SqFYz",
+      "label": "auto-2026-08-31-5",
+      "note": "tags=bullx|kol|app_smart_money|axiom|padre buys=2 tokens=2 volumeUsd=353"
     }
   ]
 }
